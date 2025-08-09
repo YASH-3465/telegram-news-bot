@@ -6,6 +6,11 @@ import schedule
 import time
 import logging
 
+TOKEN = st.secrets["TELEGRAM_BOT_TOKEN"]
+CHAT_ID = st.secrets["TELEGRAM_CHAT_ID"]
+NEWS_API_KEY = st.secrets["NEWS_API_KEY"]
+
+
 # -------- Logging --------
 LOG_FILE = "telegram_news_bot.log"
 logging.basicConfig(
