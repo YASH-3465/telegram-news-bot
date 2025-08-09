@@ -6,10 +6,24 @@ import schedule
 import time
 import logging
 
-TOKEN = st.secrets["TELEGRAM_BOT_TOKEN"]
-CHAT_ID = st.secrets["TELEGRAM_CHAT_ID"]
-NEWS_API_KEY = st.secrets["NEWS_API_KEY"]
+import streamlit as st
 
+# Read secrets exactly as named in Streamlit Cloud Secrets
+NEWS_API_KEY = st.secrets.get("news_api_key", "")
+TELEGRAM_TOKEN = st.secrets.get("telegram_token", "")
+TELEGRAM_CHAT_ID = st.secrets.get("telegram_chat_id", "")
+
+missing = []
+if not NEWS_API_KEY:
+    missing.append("news_api_key")
+if not TELEGRAM_TOKEN:
+    missing.append("telegram_token")
+if not TELEGRAM_CHAT_ID:
+    missing.append("telegram_chat_id")
+
+if missing:
+    st.error(f"Missing secret(s): {', '.join(missing)}. Please add them in Streamlit Secrets.")
+    st.stop()
 
 # -------- Logging --------
 LOG_FILE = "telegram_news_bot.log"
